@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /*-----------------------------------------------------*/
-require('dotenv').config();
-const http = require('http');
-const port = process.env.SERVER_PORT || 8000;
+import dotenv from 'dotenv'; dotenv.config();
+import { Server } from 'http';
+const port: number = Number(process.env.SERVER_PORT || 8000);
 /*-----------------------------------------------------*/
 
-const server = new http.Server();
+const server = new Server();
 server.listen(port, () => console.info('Server initialized.'))
-      .on('error', (err) => {
+      .on('error', (err: any) => {
 
         if(err.syscall !== 'listen') throw err;
         const bind = (typeof port === 'string') ? `Pipe ${port}` : `Port ${port}`;
@@ -27,6 +27,6 @@ server.listen(port, () => console.info('Server initialized.'))
       .on('listening', () => {
 
         const addr = server.address();
-        const bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
+        const bind: string = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr?.port}`;
         console.info(`Listening on ${bind}.`);
       });
